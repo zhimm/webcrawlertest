@@ -1,0 +1,15 @@
+{
+  "name": "webcrawlertest",
+  "version": "1.0.0",
+  "description": "test webcrawling",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "author": "zhm",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
