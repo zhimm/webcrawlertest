@@ -6,10 +6,6 @@ test('normalizeURL', function() {
 })
 
 test('normalizeURL remove slash at the end', function() {
-    //const input = ''
-    //const actual = normalizeURL(input)
-    //const expected = ''
-    //expect(actual).toEqual(expected)
     expect(normalizeURL('https://google.com/')).toEqual('google.com')
 })
     
