@@ -7,10 +7,20 @@ function getUrlFromHTML(htmlBody, baseUrl) {
     const linkElements = dom.window.document.querySelectorAll('a')
     for (let link of linkElements) {
         if (link.href.slice(0, 1) === '/') {
-            //relative
-            urls.push(`${baseUrl}${link.href}`)
+            try {
+                const urlObj = new URL(`${baseUrl}${link.href}`)
+                urls.push(urlObj.href)
+                
+            } catch (error) {
+                console.log(error.message)   
+            }
         } else {
-            urls.push(link.href)
+            try {
+                const urlObj = new URL(link.href)
+                urls.push(urlObj.href)
+            } catch (error) {
+                console.log(error.message)   
+            }
         }
     }
     return urls

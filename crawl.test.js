@@ -33,3 +33,20 @@ test('getUrlfromHTML', function () {
     const expected = ["https://google.com/"]
     expect(actual).toEqual(expected)
 })
+
+test('getUrlfromHTML invalid', function () {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="invalid">
+                Invalid URL
+            </a>
+        </body>
+    </html>
+`
+    const inputBaseURL = "https://google.com"
+
+    const actual = getUrlFromHTML(inputHTMLBody, inputBaseURL)
+    const expected = []
+    expect(actual).toEqual(expected)
+})
