@@ -1,5 +1,28 @@
 const { JSDOM } = require('jsdom')
 
+async function crawlPage(currentURL) {
+    try {
+        const response = await fetch(currentURL)
+
+        if (response.status > 399) {
+            console.log(`error in fetch with status code ${response.status}`)
+            return
+        }
+
+        const contentType = response.headers.get('content-type')
+        if(!contentType.includes("text/html")) {
+            console.log(`non content type ${contentType}`) 
+            return
+        }
+
+        console.log(await response.text())
+        
+    } catch (error) {
+        console.log(`error in fetching ${error.message}`)
+    }
+    
+    
+}
 
 function getUrlFromHTML(htmlBody, baseUrl) {
     const urls = []
@@ -10,16 +33,16 @@ function getUrlFromHTML(htmlBody, baseUrl) {
             try {
                 const urlObj = new URL(`${baseUrl}${link.href}`)
                 urls.push(urlObj.href)
-                
+
             } catch (error) {
-                console.log(error.message)   
+                console.log(error.message)
             }
         } else {
             try {
                 const urlObj = new URL(link.href)
                 urls.push(urlObj.href)
             } catch (error) {
-                console.log(error.message)   
+                console.log(error.message)
             }
         }
     }
@@ -30,14 +53,15 @@ function normalizeURL(url) {
     const sadge = new URL(url)
     const hostPath = `${sadge.hostname}${sadge.pathname}`
     if (hostPath.length > 0 && hostPath.slice(-1) === '/') {
-        return hostPath.slice(0, -1) 
+        return hostPath.slice(0, -1)
     }
     return hostPath
 
 }
 
 
-module.exports= {
+module.exports = {
     normalizeURL,
     getUrlFromHTML,
+    crawlPage,
 }
